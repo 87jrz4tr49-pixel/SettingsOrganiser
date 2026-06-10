@@ -1,4 +1,4 @@
-name: Build Tweak
+name: Build Tweak9986
 
 on: [push]
 
@@ -10,9 +10,16 @@ jobs:
       - name: Install Theos
         run: |
           git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          cd $HOME/theos
+          mkdir -p sdks
+          cd sdks
+          curl -LO https://github.com/theos/sdks/raw/master/iPhoneOS16.0.sdk.zip
+          unzip -q iPhoneOS16.0.sdk.zip
+          ln -s iPhoneOS16.0.sdk iPhoneOS.sdk
       - name: Build tweak
         run: |
           export THEOS=$HOME/theos
+          export TARGET=iphone:latest:14.0
           make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
       - name: Upload deb
         uses: actions/upload-artifact@v4
