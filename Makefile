@@ -1,6 +1,7 @@
 THEOS_PACKAGE_SCHEME = rootless
 GO_EASY_ON_ME = 1
 ARCHS = arm64
+TARGET = iphone:latest:14.0
 
 include $(THEOS)/makefiles/common.mk
 
