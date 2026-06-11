@@ -54,18 +54,3 @@ jobs:
 
       - name: Install aria2
         run: brew install aria2
-
-      - name: Create branch
-        run: |
-          # thanks to https://github.com/actions/checkout/discussions/479
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          SDK_NAME="${{ inputs.full_sdk_name }}"
-          BRANCH_NAME="bot/${SDK_NAME}"
-
-          git switch -c "${BRANCH_NAME}"
-          git add "${{ steps.patch-sdk.outputs.sdk-path }}"
-
-          git commit -m "Add ${SDK_NAME} SDK"
-          git push --set-upstream origin "${BRANCH_NAME}"
